@@ -11,4 +11,8 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = '__all__'
-        validators = [PleasantHabitValidator(), PleasantHabitOrRewardValidator(), RelatedHabitValidator()]
+        validators = [
+            PleasantHabitValidator(field1='is_pleasant', field2='reward', field3='related_habit'),
+            PleasantHabitOrRewardValidator(field1='reward', field2='related_habit'),
+            RelatedHabitValidator(field1='related_habit')
+        ]

@@ -26,7 +26,7 @@ class Habit(models.Model):
     users = models.ManyToManyField(User, verbose_name='пользователи', related_name='users', **NULLABLE)
 
     def __str__(self):
-        return f'{self.action} в {self.time.time} {habit.place}'
+        return f'{self.action} в {self.time} {self.place}'
 
     class Meta:
         verbose_name = 'Привычка'
