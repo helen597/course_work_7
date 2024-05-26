@@ -50,7 +50,7 @@ class UserUpdateAPIView(UpdateAPIView):
 class UserListAPIView(ListAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class UserDestroyAPIView(DestroyAPIView):
