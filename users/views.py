@@ -27,12 +27,18 @@ class UserCreateAPIView(CreateAPIView):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-    def perform_authentication(self, request):
-        user = User.objects.filter(verification_code=self.request.token).first()
-        if user:
-            zone = pytz.timezone(settings.TIME_ZONE)
-            user.last_login = datetime.now(zone)
-            user.save()
+    # def perform_authentication(self, request):
+    #     auth_header = request.headers.get('Authorization')
+    #     if auth_header:
+    #         try:
+    #             token = auth_header.split()[1]
+    #             user = User.objects.filter(verification_code=token).first()
+    #             if user:
+    #                 zone = pytz.timezone(settings.TIME_ZONE)
+    #                 user.last_login = datetime.now(zone)
+    #                 user.save()
+    #         except AttributeError as e:
+    #             print(e)
 
 
 class UserUpdateAPIView(UpdateAPIView):
@@ -44,7 +50,7 @@ class UserUpdateAPIView(UpdateAPIView):
 class UserListAPIView(ListAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 class UserDestroyAPIView(DestroyAPIView):
