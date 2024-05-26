@@ -3,7 +3,7 @@ from users.apps import UsersConfig
 from django.contrib.auth.views import LogoutView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetView
 from django.urls import path, reverse_lazy
 from users.views import UserCreateAPIView, UserUpdateAPIView, verification_view, \
-    recover_password, UserListAPIView, MyTokenObtainPairView
+    recover_password, UserListAPIView, MyTokenObtainPairView, UserDestroyAPIView
 
 
 app_name = UsersConfig.name
@@ -12,7 +12,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', UserCreateAPIView.as_view(), name='register'),
     path('register/confirm/<str:token>/', verification_view, name='verification'),
-    path('profile/', UserUpdateAPIView.as_view(), name='profile'),
+    path('<int:pk>/profile/', UserUpdateAPIView.as_view(), name='profile'),
+    path('<int:pk>/delete/', UserDestroyAPIView.as_view(), name='delete'),
     path('recover/', recover_password, name='recover'),
     path('password_reset/',
          PasswordResetView.as_view(template_name="users/password_reset_form.html",
@@ -26,7 +27,7 @@ urlpatterns = [
     path('password_reset/complete/',
          PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
          name='password_reset_complete'),
-    path('users/', UserListAPIView.as_view(), name='users'),
+    path('', UserListAPIView.as_view(), name='users'),
     path('login/', MyTokenObtainPairView.as_view(), name='login'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]
