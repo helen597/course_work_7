@@ -10,6 +10,14 @@ class DurationValidator:
             raise serializers.ValidationError("Время на выполнение не должно превышать 120 секунд")
 
 
+class PeriodValidator:
+    """Нельзя выполнять привычку реже, чем 1 раз в 7 дней"""
+
+    def __call__(self, value):
+        if not 1 <= value <= 10080:
+            raise serializers.ValidationError('Нельзя выполнять привычку реже, чем 1 раз в 7 дней')
+
+
 class PleasantHabitValidator:
     """У приятной привычки не может быть вознаграждения или связанной привычки"""
 

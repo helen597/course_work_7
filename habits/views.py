@@ -35,6 +35,7 @@ class HabitCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         habit = serializer.save()
         habit.owner = self.request.user
+        habit.users.add(self.request.user)
         habit.save()
 
 
