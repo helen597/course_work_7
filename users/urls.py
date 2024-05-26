@@ -1,10 +1,9 @@
-from users.views import MyTokenObtainPairView
 from rest_framework_simplejwt.views import TokenRefreshView
 from users.apps import UsersConfig
 from django.contrib.auth.views import LogoutView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetView
 from django.urls import path, reverse_lazy
 from users.views import UserCreateAPIView, UserUpdateAPIView, verification_view, \
-    recover_password, UserListAPIView
+    recover_password, UserListAPIView, MyTokenObtainPairView
 
 
 app_name = UsersConfig.name
