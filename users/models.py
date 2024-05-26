@@ -15,6 +15,7 @@ class User(AbstractUser):
     verification_code = models.CharField(max_length=10, verbose_name='код верификации', **NULLABLE)
     last_login = models.DateTimeField(**NULLABLE, verbose_name='дата последнего входа')
     is_active = models.BooleanField(default=False, verbose_name='активен')
+    tg_chat_id = models.CharField(max_length=50, verbose_name='telegram chat id', **NULLABLE)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 

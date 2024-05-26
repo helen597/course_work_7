@@ -21,7 +21,7 @@ class Habit(models.Model):
     reward = models.CharField(max_length=100, **NULLABLE, verbose_name='вознаграждение')
     duration = models.DurationField(default=timedelta(minutes=2), verbose_name='время на выполение')
     is_public = models.BooleanField(default=False, verbose_name='признак публичности')
-    users = models.ManyToManyField(User, blank=True, verbose_name='пользователи', related_name='users')
+    users = models.ManyToManyField(User, verbose_name='пользователи', related_name='users', **NULLABLE)
 
     def __str__(self):
         return f'{self.action}'
