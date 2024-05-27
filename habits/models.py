@@ -22,7 +22,7 @@ class Habit(models.Model):
     period = models.PositiveIntegerField(default=1, verbose_name='периодичность (дней)')
     reward = models.CharField(max_length=100, **NULLABLE, verbose_name='вознаграждение')
     duration = models.DurationField(default=timedelta(minutes=2), verbose_name='время на выполение (секунд)')
-    is_public = models.BooleanField(default=False, verbose_name='признак публичности')
+    is_public = models.BooleanField(default=True, verbose_name='признак публичности')
     users = models.ManyToManyField(User, verbose_name='пользователи', related_name='users', **NULLABLE)
 
     def __str__(self):

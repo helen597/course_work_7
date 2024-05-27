@@ -13,17 +13,25 @@ class HabitListAPIView(generics.ListAPIView):
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = MyPagination
-
-    def get_queryset(self):
-        queryset = Habit.objects.all()
-        paginated_queryset = self.paginate_queryset(queryset)
-        serializer = HabitSerializer(paginated_queryset, many=True)
-        return self.get_paginated_response(serializer.data)
+    #
+    # def get_queryset(self):
+    #     queryset = Habit.objects.all()
+    #     paginated_queryset = self.paginate_queryset(queryset)
+    #     serializer = HabitSerializer(paginated_queryset, many=True)
+    #     return self.get_paginated_response(serializer.data)
 
 
 class MyHabitListAPIView(HabitListAPIView):
     """User's habit list endpoint"""
     permission_classes = [IsAuthenticated, IsOwner]
+
+    def get_queryset(self):
+        user = self.request.user
+        if not user.is_superuser:
+            queryset = Habit.objects.filter(owner=user)
+        else:
+            queryset = Habit.objects.all()
+        return queryset
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
