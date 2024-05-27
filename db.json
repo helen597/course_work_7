@@ -680,7 +680,7 @@
     "fields": {
       "owner": 7,
       "place": "дома",
-      "time": "2024-05-27T10:22:00Z",
+      "time": "2024-05-27T10:55:00Z",
       "action": "выпить стакан воды",
       "is_pleasant": false,
       "related_habit": null,
@@ -737,7 +737,7 @@
     "fields": {
       "owner": 6,
       "place": "во дворе",
-      "time": "2024-05-27T10:20:00Z",
+      "time": "2024-05-27T11:00:00Z",
       "action": "прогуляться",
       "is_pleasant": false,
       "related_habit": 10,

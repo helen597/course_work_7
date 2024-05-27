@@ -18,6 +18,7 @@ from users.serializers import MyTokenObtainPairSerializer, UserSerializer
 
 # Create your views here.
 class UserCreateAPIView(CreateAPIView):
+    """Контроллер создания пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -28,6 +29,7 @@ class UserCreateAPIView(CreateAPIView):
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
+    """Контроллер авторизации пользователя"""
     serializer_class = MyTokenObtainPairSerializer
 
     def perform_authentication(self, request):
@@ -45,24 +47,28 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 class UserUpdateAPIView(UpdateAPIView):
+    """Контроллер редактирования профиля пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
 
 
 class UserListAPIView(ListAPIView):
+    """Контроллер вывода списка пользователей"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
 
 
 class UserDestroyAPIView(DestroyAPIView):
+    """Контроллер удаления пользователя"""
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
 
 
 def verification_view(request, token):
+    """Функция верификации пользователя"""
     user = User.objects.filter(verification_code=token).first()
     if user:
         user.is_active = True
@@ -71,6 +77,7 @@ def verification_view(request, token):
 
 
 def recover_password(request):
+    """Функция восстановления пароля"""
     alphabet = string.ascii_letters + string.digits
     password = "".join(secrets.choice(alphabet) for i in range(10))
     request.user.set_password(password)

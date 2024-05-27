@@ -22,21 +22,24 @@ def send_alert():
 
         for user in habit.users.all():
             if user.telegram_chat_id:
-                send_telegram_message(
+                response = send_telegram_message(
                     chat_id=user.telegram_chat_id,
                     message=message_1,
                 )
+                print(response)
                 if habit.related_habit:
-                    send_telegram_message(
+                    response = send_telegram_message(
                         chat_id=user.telegram_chat_id,
                         message=message_2,
                     )
+                    print(response)
                     # print(message_2)
                 elif habit.reward:
-                    send_telegram_message(
+                    response = send_telegram_message(
                         chat_id=user.telegram_chat_id,
                         message=message_3,
                     )
+                    print(response)
                     # print(message_3)
         habit.time = habit.time + timedelta(minutes=habit.period)
         habit.save()

@@ -235,5 +235,5 @@ if CACHE_ENABLED:
         }
     }
 
-TELEGRAM_URL = "https://api.telegram.org/bot"
+TELEGRAM_URL = 'https://api.telegram.org/bot'
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
