@@ -1,16 +1,19 @@
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView, DestroyAPIView
-from users.serializers import MyTokenObtainPairSerializer, UserSerializer
 import secrets
 import string
-import pytz
 from datetime import datetime
+
+import pytz
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.urls import reverse
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, UpdateAPIView)
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 from config import settings
 from users.models import User
+from users.serializers import MyTokenObtainPairSerializer, UserSerializer
 
 
 # Create your views here.
@@ -28,7 +31,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
     def perform_authentication(self, request):
-        auth_header = request.headers.get('Authorization')
+        auth_header = request.headers.get("Authorization")
         if auth_header:
             try:
                 token = auth_header.split()[1]
@@ -64,7 +67,7 @@ def verification_view(request, token):
     if user:
         user.is_active = True
         user.save()
-    return redirect('users:login')
+    return redirect("users:login")
 
 
 def recover_password(request):
@@ -80,4 +83,4 @@ def recover_password(request):
         recipient_list=[request.user.email],
         fail_silently=False,
     )
-    return redirect(reverse('catalog:product_list'))
+    return redirect(reverse("catalog:product_list"))

@@ -1,6 +1,8 @@
 from datetime import timedelta
+
 from celery import shared_task
 from django.utils import timezone
+
 from habits.models import Habit
 from habits.services import send_telegram_message
 
@@ -8,17 +10,15 @@ from habits.services import send_telegram_message
 @shared_task
 def send_alert():
     """Функция оповещения о полезной привычке"""
-    current_datetime = timezone.now().today()
-    for habit in Habit.objects.filter(is_pleasant=False):
-        print(habit.time, "==", current_datetime.time().minute)
-
-    for habit in Habit.objects.filter(is_pleasant=False).filter(time=current_datetime):
-        message_1 = f'Полезная привычка: {habit}'
+    current_datetime = timezone.now().today().replace(second=0, microsecond=0)
+    habits = Habit.objects.filter(is_pleasant=False).filter(time=current_datetime)
+    for habit in habits:
+        message_1 = f"Полезная привычка: {habit}"
         print(message_1)
         if habit.related_habit:
-            message_2 = f'За выполнение Вы можете: {habit.related_habit}'
+            message_2 = f"За выполнение Вы можете: {habit.related_habit}"
         elif habit.reward:
-            message_3 = f'За выполнение Вам можно: {habit.reward}'
+            message_3 = f"За выполнение Вам можно: {habit.reward}"
 
         for user in habit.users.all():
             if user.telegram_chat_id:
@@ -31,10 +31,12 @@ def send_alert():
                         chat_id=user.telegram_chat_id,
                         message=message_2,
                     )
+                    # print(message_2)
                 elif habit.reward:
                     send_telegram_message(
                         chat_id=user.telegram_chat_id,
                         message=message_3,
                     )
+                    # print(message_3)
         habit.time = habit.time + timedelta(minutes=habit.period)
         habit.save()

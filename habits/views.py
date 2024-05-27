@@ -1,20 +1,22 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+
 from habits.models import Habit
 from habits.paginators import MyPagination
-from users.permissions import IsOwner
 from habits.serializers import HabitSerializer
+from users.permissions import IsOwner
 
 
 # Create your views here.
 class HabitListAPIView(generics.ListAPIView):
     """Habit list endpoint"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = MyPagination
     #
-    # def get_queryset(self):
+    # def get(self, request):
     #     queryset = Habit.objects.all()
     #     paginated_queryset = self.paginate_queryset(queryset)
     #     serializer = HabitSerializer(paginated_queryset, many=True)
@@ -23,6 +25,7 @@ class HabitListAPIView(generics.ListAPIView):
 
 class MyHabitListAPIView(HabitListAPIView):
     """User's habit list endpoint"""
+
     permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
@@ -36,6 +39,7 @@ class MyHabitListAPIView(HabitListAPIView):
 
 class HabitCreateAPIView(generics.CreateAPIView):
     """Habit create endpoint"""
+
     serializer_class = HabitSerializer
     permission_classes = [IsAuthenticated]
 
@@ -48,6 +52,7 @@ class HabitCreateAPIView(generics.CreateAPIView):
 
 class HabitRetrieveAPIView(generics.RetrieveAPIView):
     """Habit retrieve endpoint"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated]
@@ -55,6 +60,7 @@ class HabitRetrieveAPIView(generics.RetrieveAPIView):
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
     """Habit update endpoint"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
@@ -62,6 +68,7 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
 
 class HabitDestroyAPIView(generics.DestroyAPIView):
     """Habit delete endpoint"""
+
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]

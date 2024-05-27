@@ -6,21 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0002_user_tg_chat_id'),
+        ("users", "0002_user_tg_chat_id"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='telegram',
+            model_name="user",
+            name="telegram",
         ),
         migrations.RemoveField(
-            model_name='user',
-            name='tg_chat_id',
+            model_name="user",
+            name="tg_chat_id",
         ),
         migrations.AddField(
-            model_name='user',
-            name='telegram_chat_id',
-            field=models.CharField(blank=True, max_length=50, null=True, unique=True, verbose_name='Telegram_chat_id'),
+            model_name="user",
+            name="telegram_chat_id",
+            field=models.CharField(
+                blank=True,
+                max_length=50,
+                null=True,
+                unique=True,
+                verbose_name="Telegram_chat_id",
+            ),
         ),
     ]
