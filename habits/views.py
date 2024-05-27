@@ -1,9 +1,8 @@
-from rest_framework import generics, serializers
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from habits.models import Habit
 from habits.paginators import MyPagination
 from users.permissions import IsOwner
-from rest_framework.views import APIView
 from habits.serializers import HabitSerializer
 
 

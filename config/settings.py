@@ -90,8 +90,8 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),  # Название БД
         'USER': os.getenv('DB_USER'),  # Пользователь для подключения
         'PASSWORD': os.getenv('DB_PASSWORD'),  # Пароль для этого пользователя
-        'HOST': os.getenv('POSTGRES_HOST'),  # Адрес, на котором развернут сервер БД
-        'PORT': os.getenv('POSTGRES_PORT'),  # Порт, на котором работает сервер БД
+        'HOST': os.getenv('POSTGRES_HOST'),  # Адрес сервера БД
+        'PORT': os.getenv('POSTGRES_PORT'),  # Порт сервера БД
     }
 }
 
@@ -184,7 +184,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
-    "https://read-and-write.example.com",  # Замените на адрес вашего фронтенд-сервера
+    "https://read-and-write.example.com",  # адрес фронтенд-сервера
     # и добавьте адрес бэкенд-сервера
 ]
 
@@ -196,7 +196,7 @@ STRIPE_API_KEY = os.getenv('STRIPE_API_KEY ')
 # Настройки для Celery
 
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Например, Redis
 
 # URL-адрес брокера результатов, также Redis
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
@@ -215,7 +215,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
         'task': 'habits.tasks.send_alert',  # Путь к задаче
-        'schedule': timedelta(minutes=1),  # Расписание выполнения задачи (например, каждые 10 минут)
+        'schedule': timedelta(minutes=1),  # Расписание
     },
 }
 

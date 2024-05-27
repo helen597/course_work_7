@@ -5,8 +5,8 @@ from habits.validators import (DurationValidator, PleasantHabitValidator,
 
 
 class HabitSerializer(serializers.ModelSerializer):
-    duration = serializers.DurationField(validators=[DurationValidator])
-    period = serializers.IntegerField(validators=[PeriodValidator])
+    duration = serializers.DurationField(validators=[DurationValidator()])
+    period = serializers.IntegerField(validators=[PeriodValidator()])
 
     class Meta:
         model = Habit

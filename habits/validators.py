@@ -16,7 +16,7 @@ class PeriodValidator:
 
     def __call__(self, value):
         if value:
-            if not 1 <= value <= 10080:
+            if not 1 <= value <= 7:
                 raise serializers.ValidationError('Нельзя выполнять привычку реже, чем 1 раз в 7 дней')
 
 
