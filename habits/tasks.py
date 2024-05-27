@@ -42,4 +42,5 @@ def send_alert():
                     print(response)
                     # print(message_3)
         habit.time = habit.time + timedelta(minutes=habit.period)
+        # habit.time = habit.time + timedelta(days=habit.period)
         habit.save()
