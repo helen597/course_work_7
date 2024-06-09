@@ -5,4 +5,4 @@
 #python3 manage.py collectstatic --input
 #deactivate
 
-docker-compose up -d --build
+sudo docker-compose up -d --build
